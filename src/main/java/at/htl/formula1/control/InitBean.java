@@ -59,8 +59,9 @@ public class InitBean {
             e.printStackTrace();
         }*/
 
+
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/races.csv")));
+            BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("../../resources/races.csv")));
 
             br.readLine();
 
@@ -70,18 +71,20 @@ public class InitBean {
                 String [] row = line.split(";");
 
 
-                System.out.println(row[1]+""+row[2]+""+row[3]);
+                System.out.println(row[1]+";"+row[2]+";"+row[3]);
 
-              /*  List<Race> races = this.em.createNamedQuery("Race.get",Race.class)
+                List <Race> races = this.em.createNamedQuery("Race.get",Race.class)
                                             .setParameter("id",row[0])
-                                            .setParameter("country",row[1])
-                                            .setParameter("date",row[2])
+                                            /*.setParameter("country",row[1])
+                                            .setParameter("date",row[2])*/
                                             .getResultList();
 
-                Race race;
 
-                race = new Race(row[0]);
-               // this.em.persist(race);*/
+
+
+                Race race = new Race(row[0]);
+
+                this.em.persist(race);
 
             }
         } catch (FileNotFoundException e) {
@@ -109,7 +112,7 @@ public class InitBean {
 
 
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/races.csv")));
+            BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("../../ersources/teams.csv")));
             br.readLine();
             String line;
             while ((line = br.readLine()) != null) {
@@ -120,7 +123,7 @@ public class InitBean {
                         .setParameter("RACE",row[0])
                         .getResultList();*/
 
-                Race race;
+             Race race;
 
              //   race = new Race(row[0]);
                 //this.em.persist(race);

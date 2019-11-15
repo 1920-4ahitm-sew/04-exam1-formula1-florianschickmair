@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @Table(name = "RACE")
 @NamedQueries({
         @NamedQuery(name="Race.get",query = "select r from Race r where r.id = :id and r.country = :country and r.date= :date")
+     //   @NamedQuery(name = "getWinner",query = "select")
 })
 public class Race {
 
@@ -25,11 +26,20 @@ public class Race {
     public Race() {
     }
 
+    //test constructor
+    public Race(Long id){
+
+        this.id =id;
+    }
+
+
     public Race(Long id, String country, LocalDate date) {
         this.id = id;
         this.country = country;
         this.date = date;
     }
+
+
     //endregion
 
     //region Getter and Setter

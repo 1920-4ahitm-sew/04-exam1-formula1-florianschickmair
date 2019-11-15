@@ -66,12 +66,13 @@ public class ResultsRestClient {
 
         for(JsonValue jsonValue : resultsJson){
 
-          String name = jsonValue.asJsonObject().getString("name");
 
-          int pos = jsonValue.asJsonObject().getInt("raceno");
+          String name = jsonValue.asJsonObject().getString("driverFullName");
+          int pos = jsonValue.asJsonObject().getInt("position");
           int raceNo = jsonValue.asJsonObject().getInt("raceNo");
 
-         // em.persist(new Result(em.find(Race.class,raceNo), pos,(java.sql.Driver) em.createNamedQuery("Driver.findByName",Driver.class).setParameter("NAME",name)));
+
+          em.persist(new Result(em.find(Race.class,raceNo), pos, (Driver) em.createNamedQuery("Driver.findByName",Driver.class).setParameter("NAME",name)));
 
         }
 
