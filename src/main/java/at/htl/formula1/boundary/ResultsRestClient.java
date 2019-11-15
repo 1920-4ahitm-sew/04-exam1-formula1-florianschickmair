@@ -69,7 +69,9 @@ public class ResultsRestClient {
           String name = jsonValue.asJsonObject().getString("name");
 
           int pos = jsonValue.asJsonObject().getInt("raceno");
-          em.persist(new Result(em.find(Race.class,), pos,(java.sql.Driver) em.createNamedQuery("Driver.findByName",Driver.class).setParameter("NAME",name)));
+          int raceNo = jsonValue.asJsonObject().getInt("raceNo");
+
+         // em.persist(new Result(em.find(Race.class,raceNo), pos,(java.sql.Driver) em.createNamedQuery("Driver.findByName",Driver.class).setParameter("NAME",name)));
 
         }
 

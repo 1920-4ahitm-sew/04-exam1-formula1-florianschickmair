@@ -51,10 +51,17 @@ public class InitBean {
      */
     private void readRacesFromFile(String racesFileName) {
 
-
+       /* URL url = Thread.currentThread().getContextClassLoader()
+                .getResource("angabe.csv");
+        try (Stream stream = Files.lines(Paths.get(url.getPath()))) {
+            stream.forEach(this::parseRunner);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
 
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/races.csv")));
+
             br.readLine();
 
             String line;
@@ -62,14 +69,19 @@ public class InitBean {
 
                 String [] row = line.split(";");
 
-                List<Race> races = this.em.createNamedQuery("Race.getById",Race.class)
-                                            .setParameter("RACE",row[0])
+
+                System.out.println(row[1]+""+row[2]+""+row[3]);
+
+              /*  List<Race> races = this.em.createNamedQuery("Race.get",Race.class)
+                                            .setParameter("id",row[0])
+                                            .setParameter("country",row[1])
+                                            .setParameter("date",row[2])
                                             .getResultList();
 
                 Race race;
 
                 race = new Race(row[0]);
-               // this.em.persist(race);
+               // this.em.persist(race);*/
 
             }
         } catch (FileNotFoundException e) {

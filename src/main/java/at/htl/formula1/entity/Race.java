@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "RACE")
 @NamedQueries({
-        @NamedQuery(name="Race.getById",query = "select r from Race r where r.id = :id")
+        @NamedQuery(name="Race.get",query = "select r from Race r where r.id = :id and r.country = :country and r.date= :date")
 })
 public class Race {
 

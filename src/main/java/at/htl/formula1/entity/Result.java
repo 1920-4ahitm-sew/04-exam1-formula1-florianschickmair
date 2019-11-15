@@ -8,7 +8,7 @@ import javax.persistence.*;
  * The id's are assigned by the database.
  */
 @Entity
-
+@Table(name = "RESULT")
 public class Result {
 
     @Transient
