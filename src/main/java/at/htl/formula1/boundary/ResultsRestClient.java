@@ -19,9 +19,12 @@ import javax.ws.rs.core.Response;
 public class ResultsRestClient {
 
 
+    @PersistenceContext
+    EntityManager em;
+
     public static final String RESULTS_ENDPOINT = "http://vm90.htl-leonding.ac.at/results";
-    private Client client;
-    private WebTarget target;
+    private Client client = ClientBuilder.newClient();
+    private WebTarget target = client.target(RESULTS_ENDPOINT);
 
     /**
      * Vom RestEndpoint werden alle Result abgeholt und in ein JsonArray gespeichert.
@@ -29,9 +32,14 @@ public class ResultsRestClient {
      */
     public void readResultsFromEndpoint() {
 
-        JsonArray payload = null;
+
+        Response response = this.target.request(MediaType.APPLICATION_JSON).get();
+
+        JsonArray payload = response.readEntity(JsonArray.class);
 
         persistResult(payload);
+
+
     }
 
     /**
@@ -55,6 +63,16 @@ public class ResultsRestClient {
      */
     @Transactional
     void persistResult(JsonArray resultsJson) {
+
+        for(JsonValue jsonValue : resultsJson){
+
+          String name = jsonValue.asJsonObject().getString("name");
+
+          int pos = jsonValue.asJsonObject().getInt("raceno");
+          em.persist(new Result(em.find(Race.class,), pos,(java.sql.Driver) em.createNamedQuery("Driver.findByName",Driver.class).setParameter("NAME",name)));
+
+        }
+
 
     }
 

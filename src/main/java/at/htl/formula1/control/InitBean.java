@@ -13,13 +13,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.stream.Stream;
 
 @ApplicationScoped
@@ -51,6 +52,35 @@ public class InitBean {
     private void readRacesFromFile(String racesFileName) {
 
 
+
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/races.csv")));
+            br.readLine();
+
+            String line;
+            while ((line = br.readLine()) != null) {
+
+                String [] row = line.split(";");
+
+                List<Race> races = this.em.createNamedQuery("Race.getById",Race.class)
+                                            .setParameter("RACE",row[0])
+                                            .getResultList();
+
+                Race race;
+
+                race = new Race(row[0]);
+               // this.em.persist(race);
+
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
     }
 
     /**
@@ -61,6 +91,39 @@ public class InitBean {
      * @param teamFileName
      */
     private void readTeamsAndDriversFromFile(String teamFileName) {
+
+
+
+
+
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/races.csv")));
+            br.readLine();
+            String line;
+            while ((line = br.readLine()) != null) {
+
+                String [] row = line.split(";");
+
+              /*  List<Race> races = this.em.createNamedQuery("Race.getById",Race.class)
+                        .setParameter("RACE",row[0])
+                        .getResultList();*/
+
+                Race race;
+
+             //   race = new Race(row[0]);
+                //this.em.persist(race);
+
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
 
     }
 
@@ -76,6 +139,11 @@ public class InitBean {
      */
 
     private void persistTeamAndDrivers(String[] line) {
+
+
+
+
+
 
     }
 
