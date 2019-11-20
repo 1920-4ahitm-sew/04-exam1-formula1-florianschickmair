@@ -29,3 +29,18 @@ neuer Code:
 em.persist(r);
 ```
 Mit der Methode Long.parseLong wird der übergebene Wert (String) zu einem Long, für das einlesen des Datums muss außerdem DateTimeFormatter verwendet werden.
+
+** einlesen der Datei teams.csv:
+
+
+```
+ while ((line = bufferedReader.readLine()) != null) {
+                String [] row = line.split(";");
+                persistTeamAndDrivers(row);
+            }}
+```
+Übergabe jeder Zeile an persistTeamAndDrivers als Array
+
+* persistTeamAndDrivers:
+
+...

@@ -1,6 +1,7 @@
 package at.htl.formula1.control;
 
 import at.htl.formula1.boundary.ResultsRestClient;
+import at.htl.formula1.entity.Driver;
 import at.htl.formula1.entity.Race;
 import at.htl.formula1.entity.Team;
 
@@ -9,6 +10,7 @@ import javax.enterprise.context.Initialized;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.io.*;
@@ -122,9 +124,25 @@ public class InitBean {
      */
 
     private void persistTeamAndDrivers(String[] line) {
+        //hier
+        Team t;
 
+        try {
+            t = em.createNamedQuery(
+                    "Team.findByName", Team.class)
+                    .setParameter("NAME", line[0])
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            t = new Team(line[0]);
 
+            em.persist(t);
+        }
 
+        Driver d1 = new Driver(line[1], t);
+        Driver d2 = new Driver(line[2], t);
+
+        em.persist(d1);
+        em.persist(d2);
 
 
 
