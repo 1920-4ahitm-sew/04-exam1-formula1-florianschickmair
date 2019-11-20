@@ -10,11 +10,11 @@ import java.time.LocalDate;
  */
 
 @Entity
-@Table(name = "RACE")
-@NamedQueries({
+@Table(name = "F1_RACE")
+/*@NamedQueries({
         @NamedQuery(name="Race.get",query = "select r from Race r where r.id = :id and r.country = :country and r.date= :date")
      //   @NamedQuery(name = "getWinner",query = "select")
-})
+})*/
 public class Race {
 
     @Id
@@ -27,10 +27,10 @@ public class Race {
     }
 
     //test constructor
-    public Race(Long id){
+    /*public Race(Long id){
 
         this.id =id;
-    }
+    }*/
 
 
     public Race(Long id, String country, LocalDate date) {

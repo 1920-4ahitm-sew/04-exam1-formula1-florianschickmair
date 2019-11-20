@@ -24,9 +24,9 @@ public class ResultsEndpoint {
     @PersistenceContext
     EntityManager em;
 
-    @GET
+    //@GET
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonObject getPointsSumOfDriver(@NamedQuery("NAME") String name) {
+   /* public JsonObject getPointsSumOfDriver(@NamedQuery("NAME") String name) {
 
         TypedQuery<Driver> query = em.createNamedQuery("Driver.findByName",Driver.class)
                 .setParameter("NAME",name);
@@ -36,7 +36,7 @@ public class ResultsEndpoint {
 
 
         return null;
-    }
+    }*/
 
     /**
      * @param id des Rennens

@@ -1,33 +1,27 @@
 package at.htl.formula1.control;
 
 import at.htl.formula1.boundary.ResultsRestClient;
-import at.htl.formula1.entity.Driver;
 import at.htl.formula1.entity.Race;
-import at.htl.formula1.entity.Team;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Initialized;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.io.*;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.stream.Stream;
 
 @ApplicationScoped
+@Transactional
 public class InitBean {
 
     private static final String TEAM_FILE_NAME = "teams.csv";
     private static final String RACES_FILE_NAME = "races.csv";
+
 
     @PersistenceContext
     EntityManager em;
@@ -40,7 +34,7 @@ public class InitBean {
 
         readTeamsAndDriversFromFile(TEAM_FILE_NAME);
         readRacesFromFile(RACES_FILE_NAME);
-        client.readResultsFromEndpoint();
+        //client.readResultsFromEndpoint();
 
     }
 
@@ -51,17 +45,11 @@ public class InitBean {
      */
     private void readRacesFromFile(String racesFileName) {
 
-       /* URL url = Thread.currentThread().getContextClassLoader()
-                .getResource("angabe.csv");
-        try (Stream stream = Files.lines(Paths.get(url.getPath()))) {
-            stream.forEach(this::parseRunner);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/"+racesFileName),StandardCharsets.UTF_8));
 
 
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("../../resources/races.csv")));
 
             br.readLine();
 
@@ -70,26 +58,16 @@ public class InitBean {
 
                 String [] row = line.split(";");
 
+                Race r = new Race(Long.parseLong(row[0]), row[1],
+                        LocalDate.parse(row[2], DateTimeFormatter.ofPattern("dd.MM.yyyy")));
 
-                System.out.println(row[1]+";"+row[2]+";"+row[3]);
 
-                List <Race> races = this.em.createNamedQuery("Race.get",Race.class)
-                                            .setParameter("id",row[0])
-                                            /*.setParameter("country",row[1])
-                                            .setParameter("date",row[2])*/
-                                            .getResultList();
+                em.persist(r);
 
 
 
-
-                Race race = new Race(row[0]);
-
-                this.em.persist(race);
-
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            }}
+        catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -110,7 +88,7 @@ public class InitBean {
 
 
 
-
+/*
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("../../ersources/teams.csv")));
             br.readLine();
@@ -121,7 +99,7 @@ public class InitBean {
 
               /*  List<Race> races = this.em.createNamedQuery("Race.getById",Race.class)
                         .setParameter("RACE",row[0])
-                        .getResultList();*/
+                        .getResultList();
 
              Race race;
 
@@ -137,7 +115,7 @@ public class InitBean {
 
 
 
-
+*/
 
 
     }
