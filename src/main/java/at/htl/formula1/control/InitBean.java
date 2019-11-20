@@ -2,6 +2,7 @@ package at.htl.formula1.control;
 
 import at.htl.formula1.boundary.ResultsRestClient;
 import at.htl.formula1.entity.Race;
+import at.htl.formula1.entity.Team;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Initialized;
@@ -86,37 +87,26 @@ public class InitBean {
     private void readTeamsAndDriversFromFile(String teamFileName) {
 
 
+      BufferedReader bufferedReader = new BufferedReader((new InputStreamReader(getClass().getResourceAsStream("/"+teamFileName),StandardCharsets.UTF_8));
 
 
-/*
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("../../ersources/teams.csv")));
-            br.readLine();
+
+            bufferedReader.readLine();
+
             String line;
-            while ((line = br.readLine()) != null) {
+            while ((line = bufferedReader.readLine()) != null) {
 
                 String [] row = line.split(";");
 
-              /*  List<Race> races = this.em.createNamedQuery("Race.getById",Race.class)
-                        .setParameter("RACE",row[0])
-                        .getResultList();
 
-             Race race;
+                persistTeamAndDrivers(row);
 
-             //   race = new Race(row[0]);
-                //this.em.persist(race);
 
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            }}
+        catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
-*/
-
 
     }
 
