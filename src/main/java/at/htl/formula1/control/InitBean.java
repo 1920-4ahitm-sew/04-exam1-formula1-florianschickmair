@@ -89,7 +89,7 @@ public class InitBean {
     private void readTeamsAndDriversFromFile(String teamFileName) {
 
 
-      BufferedReader bufferedReader = new BufferedReader((new InputStreamReader(getClass().getResourceAsStream("/"+teamFileName),StandardCharsets.UTF_8));
+      BufferedReader bufferedReader = new BufferedReader((new InputStreamReader(getClass().getResourceAsStream("/"+teamFileName),StandardCharsets.UTF_8)));
 
 
         try {
@@ -124,7 +124,7 @@ public class InitBean {
      */
 
     private void persistTeamAndDrivers(String[] line) {
-        //hier
+
         Team t;
 
         try {
@@ -133,6 +133,7 @@ public class InitBean {
                     .setParameter("NAME", line[0])
                     .getSingleResult();
         } catch (NoResultException e) {
+
             t = new Team(line[0]);
 
             em.persist(t);

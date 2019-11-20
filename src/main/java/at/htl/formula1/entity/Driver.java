@@ -9,6 +9,7 @@ import javax.persistence.*;
  */
 
 @Entity
+@Table(name = "F1_DRIVER")
 @NamedQueries({
         @NamedQuery(name = "Driver.findByName",
                 query = "select d from Driver d where d.name = :NAME" )
@@ -17,7 +18,7 @@ import javax.persistence.*;
 public class Driver {
 
 
-    @Id
+    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
