@@ -17,86 +17,83 @@
     <schema id="10" parent="1" name="SYSIBM"/>
     <schema id="11" parent="1" name="SYSPROC"/>
     <schema id="12" parent="1" name="SYSSTAT"/>
-    <table id="13" parent="2" name="DRIVER"/>
+    <table id="13" parent="2" name="F1_DRIVER"/>
     <table id="14" parent="2" name="F1_RACE"/>
-    <table id="15" parent="2" name="RACE"/>
-    <table id="16" parent="2" name="RESULT"/>
-    <table id="17" parent="2" name="TEAM"/>
-    <column id="18" parent="13" name="ID">
+    <table id="15" parent="2" name="F1_TEAM"/>
+    <table id="16" parent="2" name="RACE"/>
+    <table id="17" parent="2" name="RESULT"/>
+    <table id="18" parent="2" name="TEAM"/>
+    <column id="19" parent="13" name="ID">
       <Position>1</Position>
       <DataType>BIGINT|-5s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="19" parent="13" name="NAME">
+    <column id="20" parent="13" name="NAME">
       <Position>2</Position>
       <DataType>VARCHAR(255)|12s</DataType>
     </column>
-    <column id="20" parent="13" name="TEAM_ID">
+    <column id="21" parent="13" name="TEAM_ID">
       <Position>3</Position>
       <DataType>BIGINT|-5s</DataType>
     </column>
-    <index id="21" parent="13" name="SQL191120084933690">
+    <index id="22" parent="13" name="SQL191121145442910">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="22" parent="13" name="SQL191120084934070">
+    <index id="23" parent="13" name="SQL191121145443300">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>TEAM_ID</ColNames>
     </index>
-    <key id="23" parent="13" name="SQL191120084933690">
+    <key id="24" parent="13" name="SQL191121145442910">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="24" parent="13" name="FKS000PG2YEC3JCRI1C5PJCUDQN">
+    <foreign-key id="25" parent="13" name="FKOBLT9GMJOLNL2VVXRBCHS7G2X">
       <ColNames>TEAM_ID</ColNames>
-      <RefTableName>TEAM</RefTableName>
-      <RefKeyName>SQL191119210420580</RefKeyName>
+      <RefTableName>F1_TEAM</RefTableName>
+      <RefKeyName>SQL191120192448610</RefKeyName>
       <RefColNames>ID</RefColNames>
     </foreign-key>
-    <column id="25" parent="14" name="ID">
+    <column id="26" parent="14" name="ID">
       <Position>1</Position>
       <DataType>BIGINT|-5s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="26" parent="14" name="COUNTRY">
+    <column id="27" parent="14" name="COUNTRY">
       <Position>2</Position>
       <DataType>VARCHAR(255)|12s</DataType>
     </column>
-    <column id="27" parent="14" name="DATE">
+    <column id="28" parent="14" name="DATE">
       <Position>3</Position>
       <DataType>DATE|91s</DataType>
     </column>
-    <index id="28" parent="14" name="SQL191120084933780">
+    <index id="29" parent="14" name="SQL191121145443020">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="29" parent="14" name="SQL191120084933780">
+    <key id="30" parent="14" name="SQL191121145443020">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="30" parent="15" name="ID">
+    <column id="31" parent="15" name="ID">
       <Position>1</Position>
       <DataType>BIGINT|-5s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="31" parent="15" name="COUNTRY">
+    <column id="32" parent="15" name="NAME">
       <Position>2</Position>
       <DataType>VARCHAR(255)|12s</DataType>
     </column>
-    <column id="32" parent="15" name="DATE">
-      <Position>3</Position>
-      <DataType>DATE|91s</DataType>
-    </column>
-    <index id="33" parent="15" name="SQL191120083551480">
+    <index id="33" parent="15" name="SQL191120192448610">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="34" parent="15" name="SQL191120083551480">
+    <key id="34" parent="15" name="SQL191120192448610">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
@@ -106,69 +103,94 @@
       <DataType>BIGINT|-5s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="36" parent="16" name="POINTS">
+    <column id="36" parent="16" name="COUNTRY">
       <Position>2</Position>
-      <DataType>INTEGER|4s</DataType>
-      <NotNull>1</NotNull>
+      <DataType>VARCHAR(255)|12s</DataType>
     </column>
-    <column id="37" parent="16" name="POSITION">
+    <column id="37" parent="16" name="DATE">
       <Position>3</Position>
-      <DataType>INTEGER|4s</DataType>
-      <NotNull>1</NotNull>
+      <DataType>DATE|91s</DataType>
     </column>
-    <column id="38" parent="16" name="DRIVER_ID">
-      <Position>4</Position>
-      <DataType>BIGINT|-5s</DataType>
-    </column>
-    <column id="39" parent="16" name="RACE_ID">
-      <Position>5</Position>
-      <DataType>BIGINT|-5s</DataType>
-    </column>
-    <index id="40" parent="16" name="SQL191120084933890">
+    <index id="38" parent="16" name="SQL191120083551480">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="41" parent="16" name="SQL191120084934130">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>DRIVER_ID</ColNames>
-    </index>
-    <index id="42" parent="16" name="SQL191120084934180">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>RACE_ID</ColNames>
-    </index>
-    <key id="43" parent="16" name="SQL191120084933890">
+    <key id="39" parent="16" name="SQL191120083551480">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="44" parent="16" name="FKDJJD9B7RTIKFYX4YFQ7NT791R">
-      <ColNames>DRIVER_ID</ColNames>
-      <RefTableName>DRIVER</RefTableName>
-      <RefKeyName>SQL191119210420290</RefKeyName>
-      <RefColNames>ID</RefColNames>
-    </foreign-key>
-    <foreign-key id="45" parent="16" name="FK27VUH8AG0C3S9FC9N92BPUFTF">
-      <ColNames>RACE_ID</ColNames>
-      <RefTableName>F1_RACE</RefTableName>
-      <RefKeyName>SQL191120084933780</RefKeyName>
-      <RefColNames>ID</RefColNames>
-    </foreign-key>
-    <column id="46" parent="17" name="ID">
+    <column id="40" parent="17" name="ID">
       <Position>1</Position>
       <DataType>BIGINT|-5s</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <DefaultExpression>GENERATED_BY_DEFAULT</DefaultExpression>
     </column>
-    <column id="47" parent="17" name="NAME">
+    <column id="41" parent="17" name="POINTS">
       <Position>2</Position>
-      <DataType>VARCHAR(255)|12s</DataType>
+      <DataType>INTEGER|4s</DataType>
+      <NotNull>1</NotNull>
     </column>
-    <index id="48" parent="17" name="SQL191120084933980">
+    <column id="42" parent="17" name="POSITION">
+      <Position>3</Position>
+      <DataType>INTEGER|4s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="43" parent="17" name="DRIVER_ID">
+      <Position>4</Position>
+      <DataType>BIGINT|-5s</DataType>
+    </column>
+    <column id="44" parent="17" name="RACE_ID">
+      <Position>5</Position>
+      <DataType>BIGINT|-5s</DataType>
+    </column>
+    <index id="45" parent="17" name="SQL191121145443220">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="49" parent="17" name="SQL191120084933980">
+    <index id="46" parent="17" name="SQL191121145443360">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>DRIVER_ID</ColNames>
+    </index>
+    <index id="47" parent="17" name="SQL191121145443410">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>RACE_ID</ColNames>
+    </index>
+    <key id="48" parent="17" name="SQL191121145443220">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="49" parent="17" name="FKSBYU330B1DMSD25MY0C9QYYK0">
+      <ColNames>DRIVER_ID</ColNames>
+      <RefTableName>F1_DRIVER</RefTableName>
+      <RefKeyName>SQL191121145442910</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+    <foreign-key id="50" parent="17" name="FK27VUH8AG0C3S9FC9N92BPUFTF">
+      <ColNames>RACE_ID</ColNames>
+      <RefTableName>F1_RACE</RefTableName>
+      <RefKeyName>SQL191121145443020</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+    <column id="51" parent="18" name="ID">
+      <Position>1</Position>
+      <DataType>BIGINT|-5s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="52" parent="18" name="NAME">
+      <Position>2</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <index id="53" parent="18" name="SQL191120180450010">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="54" parent="18" name="SQL191120180450010">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>

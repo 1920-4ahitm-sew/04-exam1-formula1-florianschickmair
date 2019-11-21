@@ -12,17 +12,21 @@ import javax.persistence.*;
 @Table(name = "F1_DRIVER")
 @NamedQueries({
         @NamedQuery(name = "Driver.findByName",
-                query = "select d from Driver d where d.name = :NAME" )
+                query = "select d from Driver d where d.name = :NAME" ),
+        @NamedQuery(
+                name = "Driver.findAll",
+                query = "select d from Driver d"
+        )
 })
 
 public class Driver {
 
 
-    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Team team;
 
     //region Constructors

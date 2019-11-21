@@ -12,14 +12,16 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Transient;
 import javax.transaction.Transactional;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @ApplicationScoped
-@Transactional
+
 public class InitBean {
 
     private static final String TEAM_FILE_NAME = "teams.csv";
@@ -32,11 +34,12 @@ public class InitBean {
     @Inject
     ResultsRestClient client;
 
-
+    @Transactional
     public void init(@Observes @Initialized(ApplicationScoped.class) Object init) {
 
-        readTeamsAndDriversFromFile(TEAM_FILE_NAME);
+
         readRacesFromFile(RACES_FILE_NAME);
+        readTeamsAndDriversFromFile(TEAM_FILE_NAME);
         //client.readResultsFromEndpoint();
 
     }
@@ -46,6 +49,7 @@ public class InitBean {
      *
      * @param racesFileName
      */
+    @Transactional
     private void readRacesFromFile(String racesFileName) {
 
 
@@ -53,10 +57,10 @@ public class InitBean {
 
 
         try {
-
+            String line;
             br.readLine();
 
-            String line;
+
             while ((line = br.readLine()) != null) {
 
                 String [] row = line.split(";");
@@ -86,23 +90,25 @@ public class InitBean {
      *
      * @param teamFileName
      */
+    @Transactional
     private void readTeamsAndDriversFromFile(String teamFileName) {
 
 
-      BufferedReader bufferedReader = new BufferedReader((new InputStreamReader(getClass().getResourceAsStream("/"+teamFileName),StandardCharsets.UTF_8)));
+      BufferedReader br = new BufferedReader((new InputStreamReader(getClass().getResourceAsStream("/"+teamFileName),StandardCharsets.UTF_8)));
 
 
         try {
 
-            bufferedReader.readLine();
-
             String line;
-            while ((line = bufferedReader.readLine()) != null) {
-
-                String [] row = line.split(";");
+            br.readLine();
 
 
-                persistTeamAndDrivers(row);
+            while ((line = br.readLine()) != null) {
+
+                String [] row1 = line.split(";");
+
+
+                persistTeamAndDrivers(row1);
 
 
             }}
@@ -123,8 +129,8 @@ public class InitBean {
      * @param line String-Array mit den einzelnen Werten der csv-Datei
      */
 
-    private void persistTeamAndDrivers(String[] line) {
 
+    private void persistTeamAndDrivers(String[] line) {
         Team t;
 
         try {
@@ -132,10 +138,10 @@ public class InitBean {
                     "Team.findByName", Team.class)
                     .setParameter("NAME", line[0])
                     .getSingleResult();
+
         } catch (NoResultException e) {
 
             t = new Team(line[0]);
-
             em.persist(t);
         }
 
@@ -144,10 +150,9 @@ public class InitBean {
 
         em.persist(d1);
         em.persist(d2);
-
-
-
+    }
     }
 
 
-}
+
+
