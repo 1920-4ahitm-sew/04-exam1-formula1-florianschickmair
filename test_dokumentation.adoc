@@ -72,3 +72,4 @@ em.persist(new Result(em.find(Race.class, raceNo),
                             .setParameter("NAME", name)
                             .getSingleResult()));
 ```
+fehlte im alten Code: ".getSingleResult()"
