@@ -3,9 +3,10 @@
 === Aufgabe 1:
 ** einlesen der Datei races.csv:
 
+alter Code:
 ```
-System.out.println(row[0]+";"+row[1]+";"+row[2]);
-
+ BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/"+racesFileName),StandardCharsets.UTF_8));
+                while ((line = br.readLine()) != null) {
                /* List <Race> races = this.em.createNamedQuery("Race.get",Race.class)
                                             .setParameter("id",row[0])
                                             .setParameter("country",row[1])
@@ -18,6 +19,7 @@ System.out.println(row[0]+";"+row[1]+";"+row[2]);
                 Race race = new Race(row[0]);
 
                 this.em.persist(race);
+                }
 ```
 
 
@@ -29,6 +31,7 @@ neuer Code:
 em.persist(r);
 ```
 Mit der Methode Long.parseLong wird der übergebene Wert (String) zu einem Long, für das einlesen des Datums muss außerdem DateTimeFormatter verwendet werden.
+Um auch Umlaute einlesen zu können: StandardCharsets.UTF_8
 
 ** einlesen der Datei teams.csv:
 
@@ -41,9 +44,31 @@ Mit der Methode Long.parseLong wird der übergebene Wert (String) zu einem Long,
 ```
 Übergabe jeder Zeile an persistTeamAndDrivers als Array
 
-* persistTeamAndDrivers:
-
+---
 === Aufgabe 2:
 
+falscher Code:
+```
+int raceNo = jsonValue.asJsonObject().getInt("raceNo");
+```
+richtig:
+```
+Long raceNo = Long.parseLong("" + jsonValue.asJsonObject().getInt("raceNo"));
+```
 
-...
+Variable raceNo wurde als int und nicht als long gehandelt
+
+---
+falscher Code:
+```
+em.persist(new Result(em.find(Race.class,raceNo), pos, (Driver) em.createNamedQuery("Driver.findByName",Driver.class).setParameter("NAME",name)));
+
+```
+richtig:
+```
+em.persist(new Result(em.find(Race.class, raceNo),
+                    pos,
+                    em.createNamedQuery("Driver.findByName", Driver.class)
+                            .setParameter("NAME", name)
+                            .getSingleResult()));
+```

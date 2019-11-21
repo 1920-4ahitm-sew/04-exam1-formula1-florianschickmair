@@ -40,7 +40,7 @@ public class InitBean {
 
         readRacesFromFile(RACES_FILE_NAME);
         readTeamsAndDriversFromFile(TEAM_FILE_NAME);
-        //client.readResultsFromEndpoint();
+        client.readResultsFromEndpoint();
 
     }
 

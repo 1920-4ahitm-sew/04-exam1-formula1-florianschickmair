@@ -23,6 +23,7 @@ public class ResultsRestClient {
     EntityManager em;
 
     public static final String RESULTS_ENDPOINT = "http://vm90.htl-leonding.ac.at/results";
+
     private Client client = ClientBuilder.newClient();
     private WebTarget target = client.target(RESULTS_ENDPOINT);
 
@@ -68,11 +69,17 @@ public class ResultsRestClient {
 
 
           String name = jsonValue.asJsonObject().getString("driverFullName");
+
           int pos = jsonValue.asJsonObject().getInt("position");
-          int raceNo = jsonValue.asJsonObject().getInt("raceNo");
+
+          Long raceNo = Long.parseLong("" + jsonValue.asJsonObject().getInt("raceNo"));
 
 
-          em.persist(new Result(em.find(Race.class,raceNo), pos, (Driver) em.createNamedQuery("Driver.findByName",Driver.class).setParameter("NAME",name)));
+            em.persist(new Result(em.find(Race.class, raceNo),
+                    pos,
+                    em.createNamedQuery("Driver.findByName", Driver.class)
+                            .setParameter("NAME", name)
+                            .getSingleResult()));
 
         }
 
