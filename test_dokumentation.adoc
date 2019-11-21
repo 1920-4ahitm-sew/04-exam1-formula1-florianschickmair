@@ -73,3 +73,55 @@ em.persist(new Result(em.find(Race.class, raceNo),
                             .getSingleResult()));
 ```
 fehlte im alten Code: ".getSingleResult()"
+
+
+=== Aufgabe 3 - 5: beim Test nicht gemacht
+```
+@ApplicationPath("api")
+public class RestConfig extends Application {
+}
+```
+Die Klasse RestConfig wurde nicht erstellt
+
+Code:
+```
+@GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonObject getPointsSumOfDriver(
+            @QueryParam("name") String name
+    ) {
+        Long points = em
+                .createNamedQuery("Result.sumPointsForDriver", Long.class)
+                .setParameter("NAME", name)
+                .getSingleResult();
+
+        Driver driver = em
+                .createNamedQuery("Driver.findByName", Driver.class)
+                .setParameter("NAME", name)
+                .getSingleResult();
+
+        return Json
+                .createObjectBuilder()
+                .add("driver", driver.getName())
+                .add("points", points)
+                .build();
+    }
+
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findWinnerOfRace(@PathParam("id") long id) {
+        return null;
+    }
+
+    @GET
+    @Path("all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPointsSumOfAllDrivers() {
+        List<Object[]> elements = em
+                .createNamedQuery("Result.sumPointsForAllDrivers", Object[].class)
+                .getResultList();
+
+        return Response.ok(elements).build();
+    }
+```

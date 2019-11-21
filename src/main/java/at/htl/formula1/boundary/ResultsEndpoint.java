@@ -14,44 +14,66 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 
+@Path("results")
 public class ResultsEndpoint {
 
+
+    @PersistenceContext
+    EntityManager em;
 
     /**
      * @param name als QueryParam einzulesen
      * @return JsonObject
      */
-    @PersistenceContext
-    EntityManager em;
-
-    //@GET
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
-   /* public JsonObject getPointsSumOfDriver(@NamedQuery("NAME") String name) {
+    public JsonObject getPointsSumOfDriver(
+            @QueryParam("name") String name
+    ) {
+        Long points = em
+                .createNamedQuery("Result.sumPointsForDriver", Long.class)
+                .setParameter("NAME", name)
+                .getSingleResult();
 
-        TypedQuery<Driver> query = em.createNamedQuery("Driver.findByName",Driver.class)
-                .setParameter("NAME",name);
+        Driver driver = em
+                .createNamedQuery("Driver.findByName", Driver.class)
+                .setParameter("NAME", name)
+                .getSingleResult();
 
-        //return Response .ok()
-
-
-
-        return null;
-    }*/
+        return Json
+                .createObjectBuilder()
+                .add("driver", driver.getName())
+                .add("points", points)
+                .build();
+    }
 
     /**
+     *
      * @param id des Rennens
      * @return
      */
-
     @GET
-    public Response findWinnerOfRace(long id) {
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findWinnerOfRace(@PathParam("id") long id) {
         return null;
     }
 
+    /**
+     * Lista aller Fahrer mit ihren Punkten
+     *
+     * @return
+     */
+    @GET
+    @Path("all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPointsSumOfAllDrivers() {
+        List<Object[]> elements = em
+                .createNamedQuery("Result.sumPointsForAllDrivers", Object[].class)
+                .getResultList();
 
-
-
-
+        return Response.ok(elements).build();
+    }
 
 
 }
